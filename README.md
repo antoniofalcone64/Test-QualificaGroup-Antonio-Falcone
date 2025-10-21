@@ -49,9 +49,21 @@ src/
 ## Configurazione
 
 - **Vite**: configurato per proxy API e hot reload.
+  - **Proxy server**: configurato per bypassare CORS in sviluppo (`/api` → `https://formalab.qualificagroup.it`)
 - **Tailwind CSS**: già integrato, usa solo classi utility.
 - **Recharts**: per grafici e visualizzazioni KPI.
 - **Context API**: per gestione centralizzata dei dati.
+
+## Sviluppo
+
+### Proxy CORS
+Per lo sviluppo locale è stato necessario configurare un server proxy Vite per bypassare le restrizioni CORS. La configurazione in `vite.config.ts` redirige tutte le chiamate `/api/*` verso il server di produzione `https://formalab.qualificagroup.it`.
+
+### Refactoring del codice
+Il progetto è stato strutturato con un'architettura modulare:
+- **Separazione dei componenti**: suddivisi in categorie logiche (`ui/`, `ux/`, `pages/`)
+- **Helpers centralizzati**: tutta la logica di supporto è stata spostata in `utils/functions.tsx`
+- **Context Pattern**: gestione centralizzata dello stato tramite `JsonDataContext`
 
 ## Componenti principali
 
