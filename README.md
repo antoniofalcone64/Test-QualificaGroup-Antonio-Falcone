@@ -1,73 +1,89 @@
-# React + TypeScript + Vite
+# Test Qualifica Group
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Gestione dashboard corsi di formazione per Qualifica Group.  
+Progetto React + Vite con TypeScript, Tailwind CSS, e componenti UI custom.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dashboard full page** con filtri, analisi, e visualizzazioni (Recharts).
+- **Gestione dati** tramite Context API (`JsonDataContext`), parsing semantico dei dati API.
+- **Animazioni di caricamento** e gestione errori con componenti full page (`FullPageLoader`, `FullPageError`).
+- **Filtri avanzati** (status, regione, società, sede) e ricerca globale.
+- **Esportazione dati** (CSV, Excel).
+- **UI moderna** con Tailwind CSS e icone Lucide.
 
-## React Compiler
+## Struttura progetto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+  App.tsx                // Entry point React
+  RowComponent.tsx       // Dashboard principale
+  context/
+    JsonDataContext.tsx  // Gestione fetch e parsing dati API
+  utils/
+    functions.tsx        // Helpers, parsing semantico dati
+  components/
+    ui/
+      FullPageLoader.tsx // Loader full page (Tailwind)
+      FullPageError.tsx  // Error full page (Tailwind)
+      MultiSelect.tsx    // Select multipla custom
+    ux/
+      InfoTooltip.tsx    // Tooltip info
+  pages/
+    homepage/
+      components/        // Analytics, DataTable, Overview, Detailed
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Avvio rapido
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Installa le dipendenze:
+   ```bash
+   npm install
+   ```
+2. Avvia il server di sviluppo:
+   ```bash
+   npm run dev
+   ```
+3. Apri [http://localhost:5173](http://localhost:5173) nel browser.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Configurazione
+
+- **Vite**: configurato per proxy API e hot reload.
+- **Tailwind CSS**: già integrato, usa solo classi utility.
+- **Recharts**: per grafici e visualizzazioni KPI.
+- **Context API**: per gestione centralizzata dei dati.
+
+## Componenti principali
+
+- `FullPageLoader`: animazione di caricamento full screen.
+- `FullPageError`: gestione errori full screen con messaggio.
+- `MultiSelect`: filtro multiplo custom.
+- `JsonDataContext`: fetch, parsing e fornitura dati a tutta l’app.
+
+## API
+
+- Autenticazione e fetch dati tramite endpoint `/api/login` e `/api/classi`.
+- Parsing semantico dei dati per uniformare le chiavi e i valori.
+
+## Personalizzazione
+
+- Modifica i componenti in `src/components/ui` per personalizzare la UI.
+- Aggiungi nuovi filtri o visualizzazioni in `RowComponent.tsx` e `pages/homepage/components`.
+
+## Build produzione
+
+```bash
+npm run build
 ```
+I file ottimizzati saranno in `dist/`.
+
+## Contributi
+
+1. Forka il repo
+2. Crea un branch feature (`git checkout -b feature/nome`)
+3. Fai commit e push (`git push origin feature/nome`)
+4. Apri una Pull Request
+
+## Licenza
+
+MIT
